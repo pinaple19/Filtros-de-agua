@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiempo de filtración</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        .contenedor-tiempo {
+            max-width: 1000px;
+            margin: 70px auto;
+            padding: 30px;
+        }
+
+        .titulo-tiempo {
+            text-align: center;
+            color: #00897b;
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        .subtitulo {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+
+        .tarjetas-tiempo {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .tarjeta-tiempo {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.10);
+            text-align: center;
+        }
+
+        .tarjeta-tiempo h2 {
+            color: #00897b;
+        }
+
+        .campos-tiempo {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .campo label {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .campo input {
+            width: 90px;
+            padding: 12px;
+            font-size: 18px;
+            text-align: center;
+            border: 2px solid #00897b;
+            border-radius: 8px;
+        }
+
+        .botonera {
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        .boton-guardar {
+            background: #00897b;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .boton-guardar:hover {
+            background: #00695c;
+        }
+
+        #mensaje {
+            text-align: center;
+            color: #00796b;
+            font-weight: bold;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        @media (max-width: 800px) {
+            .tarjetas-tiempo {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <a href="index.html">Inicio</a>
+    <a href="problema.html">Problema</a>
+    <a href="filtros.html">Filtros</a>
+    <a href="experimento.html">Experimento</a>
+    <a href="tiempo.html">Tiempo</a>
+    <a href="resultados.html">Resultados</a>
+    <a href="conclusion.html">Conclusión</a>
+</nav>
+
+<main class="contenedor-tiempo">
+
+    <h1 class="titulo-tiempo">⏱️ Tiempo de filtración</h1>
+
+    <p class="subtitulo">
+        Registra cuánto tarda cada filtro en procesar la muestra de agua.
+    </p>
+
+    <div class="tarjetas-tiempo">
+
+        <div class="tarjeta-tiempo">
+            <h2>Filtro A</h2>
+
+            <div class="campos-tiempo">
+                <div class="campo">
+                    <label>Minutos</label>
+                    <input type="number" id="minA" min="0" placeholder="0">
+                </div>
+
+                <div class="campo">
+                    <label>Segundos</label>
+                    <input type="number" id="segA" min="0" max="59" placeholder="0">
+                </div>
+            </div>
+        </div>
+
+        <div class="tarjeta-tiempo">
+            <h2>Filtro B</h2>
+
+            <div class="campos-tiempo">
+                <div class="campo">
+                    <label>Minutos</label>
+                    <input type="number" id="minB" min="0" placeholder="0">
+                </div>
+
+                <div class="campo">
+                    <label>Segundos</label>
+                    <input type="number" id="segB" min="0" max="59" placeholder="0">
+                </div>
+            </div>
+        </div>
+
+        <div class="tarjeta-tiempo">
+            <h2>Filtro C</h2>
+
+            <div class="campos-tiempo">
+                <div class="campo">
+                    <label>Minutos</label>
+                    <input type="number" id="minC" min="0" placeholder="0">
+                </div>
+
+                <div class="campo">
+                    <label>Segundos</label>
+                    <input type="number" id="segC" min="0" max="59" placeholder="0">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="botonera">
+        <button class="boton-guardar" onclick="guardarTiempos()">
+            Guardar resultados
+        </button>
+    </div>
+
+    <div id="mensaje"></div>
+
+</main>
+
+<script>
+
+function guardarTiempos() {
+
+    const datos = {
+        minA: document.getElementById("minA").value || 0,
+        segA: document.getElementById("segA").value || 0,
+
+        minB: document.getElementById("minB").value || 0,
+        segB: document.getElementById("segB").value || 0,
+
+        minC: document.getElementById("minC").value || 0,
+        segC: document.getElementById("segC").value || 0
+    };
+
+    localStorage.setItem("tiemposFiltros", JSON.stringify(datos));
+
+    document.getElementById("mensaje").innerHTML =
+        "✓ Tiempos guardados correctamente";
+
+    setTimeout(function() {
+        window.location.href = "resultados.html";
+    }, 800);
+}
+
+
+/* Recupera los tiempos si volvemos a esta página */
+
+window.onload = function() {
+
+    const guardados = localStorage.getItem("tiemposFiltros");
+
+    if (guardados) {
+
+        const datos = JSON.parse(guardados);
+
+        document.getElementById("minA").value = datos.minA;
+        document.getElementById("segA").value = datos.segA;
+
+        document.getElementById("minB").value = datos.minB;
+        document.getElementById("segB").value = datos.segB;
+
+        document.getElementById("minC").value = datos.minC;
+        document.getElementById("segC").value = datos.segC;
+    }
+};
+
+</script>
+
+</body>
+</html>

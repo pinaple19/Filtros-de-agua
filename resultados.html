@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resultados</title>
+
+    <link rel="stylesheet" href="estilos.css">
+
+    <style>
+
+        .contenedor-resultados {
+            max-width: 1200px;
+            margin: 70px auto;
+            padding: 30px;
+        }
+
+        .titulo-resultados {
+            text-align: center;
+            color: #00897b;
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        .subtitulo {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 45px;
+        }
+
+        .tabla-resultados {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-top: 20px;
+        }
+
+        .tabla-resultados th {
+            background: #00897b;
+            color: white;
+            padding: 17px;
+            font-size: 18px;
+        }
+
+        .tabla-resultados td {
+            padding: 17px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 17px;
+        }
+
+        .entrada-volumen {
+            width: 85px;
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #00897b;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .apariencia {
+            padding: 8px;
+            border: 1px solid #00897b;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .botones {
+            margin-top: 35px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .boton {
+            display: inline-block;
+            background: #00897b;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 9px;
+            font-size: 17px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .boton:hover {
+            background: #00695c;
+        }
+
+        .resumen {
+            margin-top: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .resumen h2 {
+            color: #00897b;
+        }
+
+        @media(max-width:800px) {
+
+            .contenedor-resultados {
+                overflow-x: auto;
+            }
+
+            .tabla-resultados {
+                min-width: 900px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<nav>
+    <a href="index.html">Inicio</a>
+    <a href="problema.html">Problema</a>
+    <a href="filtros.html">Filtros</a>
+    <a href="experimento.html">Experimento</a>
+    <a href="tiempo.html">Tiempo</a>
+    <a href="resultados.html">Resultados</a>
+    <a href="conclusion.html">Conclusión</a>
+</nav>
+
+
+<main class="contenedor-resultados">
+
+    <h1 class="titulo-resultados">📊 Resultados</h1>
+
+    <p class="subtitulo">
+        ¿Qué ocurrió después de la filtración?
+    </p>
+
+
+    <table class="tabla-resultados">
+
+        <thead>
+            <tr>
+                <th>Muestra</th>
+                <th>Volumen inicial</th>
+                <th>Tiempo</th>
+                <th>Volumen recuperado</th>
+                <th>Flujo</th>
+                <th>Apariencia</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td><strong>Control</strong></td>
+                <td>100 mL</td>
+                <td>—</td>
+                <td>100 mL</td>
+                <td>—</td>
+                <td>Agua turbia</td>
+            </tr>
+
+
+            <tr>
+                <td><strong>Filtro A</strong></td>
+
+                <td>300 mL</td>
+
+                <td id="tiempoA">—</td>
+
+                <td>
+                    <input
+                    class="entrada-volumen"
+                    type="number"
+                    id="volA"
+                    placeholder="mL"
+                    oninput="actualizarResultados()">
+                    mL
+                </td>
+
+                <td id="flujoA">—</td>
+
+                <td>
+                    <select
+                    class="apariencia"
+                    id="aparienciaA"
+                    onchange="guardarResultados()">
+
+                        <option value="">Seleccionar</option>
+                        <option>Muy turbia</option>
+                        <option>Turbia</option>
+                        <option>Ligeramente turbia</option>
+                        <option>Más clara</option>
+                        <option>Muy clara</option>
+
+                    </select>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td><strong>Filtro B</strong></td>
+
+                <td>300 mL</td>
+
+                <td id="tiempoB">—</td>
+
+                <td>
+                    <input
+                    class="entrada-volumen"
+                    type="number"
+                    id="volB"
+                    placeholder="mL"
+                    oninput="actualizarResultados()">
+                    mL
+                </td>
+
+                <td id="flujoB">—</td>
+
+                <td>
+                    <select
+                    class="apariencia"
+                    id="aparienciaB"
+                    onchange="guardarResultados()">
+
+                        <option value="">Seleccionar</option>
+                        <option>Muy turbia</option>
+                        <option>Turbia</option>
+                        <option>Ligeramente turbia</option>
+                        <option>Más clara</option>
+                        <option>Muy clara</option>
+
+                    </select>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td><strong>Filtro C</strong></td>
+
+                <td>300 mL</td>
+
+                <td id="tiempoC">—</td>
+
+                <td>
+                    <input
+                    class="entrada-volumen"
+                    type="number"
+                    id="volC"
+                    placeholder="mL"
+                    oninput="actualizarResultados()">
+                    mL
+                </td>
+
+                <td id="flujoC">—</td>
+
+                <td>
+                    <select
+                    class="apariencia"
+                    id="aparienciaC"
+                    onchange="guardarResultados()">
+
+                        <option value="">Seleccionar</option>
+                        <option>Muy turbia</option>
+                        <option>Turbia</option>
+                        <option>Ligeramente turbia</option>
+                        <option>Más clara</option>
+                        <option>Muy clara</option>
+
+                    </select>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+    <div class="resumen">
+
+        <h2>💧 Análisis del flujo</h2>
+
+        <p>
+            El flujo indica cuántos mililitros de agua filtró
+            aproximadamente cada sistema por minuto.
+        </p>
+
+        <p>
+            <strong>Fórmula:</strong>
+            volumen recuperado ÷ tiempo de filtración.
+        </p>
+
+    </div>
+
+
+    <div class="botones">
+
+        <a href="tiempo.html" class="boton">
+            ← Modificar tiempos
+        </a>
+
+        <button class="boton" onclick="guardarResultados()">
+            Guardar resultados
+        </button>
+
+        <a href="conclusion.html" class="boton">
+            Analizar conclusiones →
+        </a>
+
+    </div>
+
+</main>
+
+
+<script>
+
+/* -------------------------
+   RECUPERAR LOS TIEMPOS
+-------------------------- */
+
+const tiemposGuardados =
+    JSON.parse(localStorage.getItem("tiemposFiltros")) || {};
+
+
+function mostrarTiempo(minutos, segundos) {
+
+    minutos = Number(minutos || 0);
+    segundos = Number(segundos || 0);
+
+    return minutos + " min " +
+           segundos.toString().padStart(2, "0") +
+           " s";
+}
+
+
+document.getElementById("tiempoA").textContent =
+    mostrarTiempo(
+        tiemposGuardados.minA,
+        tiemposGuardados.segA
+    );
+
+
+document.getElementById("tiempoB").textContent =
+    mostrarTiempo(
+        tiemposGuardados.minB,
+        tiemposGuardados.segB
+    );
+
+
+document.getElementById("tiempoC").textContent =
+    mostrarTiempo(
+        tiemposGuardados.minC,
+        tiemposGuardados.segC
+    );
+
+
+/* -------------------------
+   CALCULAR FLUJO
+-------------------------- */
+
+function calcularFlujo(volumen, minutos, segundos) {
+
+    volumen = Number(volumen);
+
+    let tiempoSegundos =
+        Number(minutos || 0) * 60 +
+        Number(segundos || 0);
+
+    if (!volumen || tiempoSegundos <= 0) {
+        return "—";
+    }
+
+    let tiempoMinutos =
+        tiempoSegundos / 60;
+
+    let flujo =
+        volumen / tiempoMinutos;
+
+    return flujo.toFixed(1) + " mL/min";
+}
+
+
+/* -------------------------
+   ACTUALIZAR RESULTADOS
+-------------------------- */
+
+function actualizarResultados() {
+
+    let volA =
+        document.getElementById("volA").value;
+
+    let volB =
+        document.getElementById("volB").value;
+
+    let volC =
+        document.getElementById("volC").value;
+
+
+    document.getElementById("flujoA").textContent =
+        calcularFlujo(
+            volA,
+            tiemposGuardados.minA,
+            tiemposGuardados.segA
+        );
+
+
+    document.getElementById("flujoB").textContent =
+        calcularFlujo(
+            volB,
+            tiemposGuardados.minB,
+            tiemposGuardados.segB
+        );
+
+
+    document.getElementById("flujoC").textContent =
+        calcularFlujo(
+            volC,
+            tiemposGuardados.minC,
+            tiemposGuardados.segC
+        );
+
+
+    guardarResultados();
+}
+
+
+/* -------------------------
+   GUARDAR RESULTADOS
+-------------------------- */
+
+function guardarResultados() {
+
+    const resultados = {
+
+        volA:
+            document.getElementById("volA").value,
+
+        volB:
+            document.getElementById("volB").value,
+
+        volC:
+            document.getElementById("volC").value,
+
+        aparienciaA:
+            document.getElementById("aparienciaA").value,
+
+        aparienciaB:
+            document.getElementById("aparienciaB").value,
+
+        aparienciaC:
+            document.getElementById("aparienciaC").value
+    };
+
+    localStorage.setItem(
+        "resultadosFiltros",
+        JSON.stringify(resultados)
+    );
+}
+
+
+/* -------------------------
+   RECUPERAR RESULTADOS
+-------------------------- */
+
+window.onload = function() {
+
+    const guardados =
+        JSON.parse(
+            localStorage.getItem("resultadosFiltros")
+        );
+
+    if (guardados) {
+
+        document.getElementById("volA").value =
+            guardados.volA || "";
+
+        document.getElementById("volB").value =
+            guardados.volB || "";
+
+        document.getElementById("volC").value =
+            guardados.volC || "";
+
+        document.getElementById("aparienciaA").value =
+            guardados.aparienciaA || "";
+
+        document.getElementById("aparienciaB").value =
+            guardados.aparienciaB || "";
+
+        document.getElementById("aparienciaC").value =
+            guardados.aparienciaC || "";
+    }
+
+    actualizarResultados();
+};
+
+</script>
+
+</body>
+</html>
